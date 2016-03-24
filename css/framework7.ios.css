@@ -1,17 +1,17 @@
 /**
  * Framework7 1.4.2
  * Full Featured Mobile HTML Framework For Building iOS & Android Apps
- * 
+ *
  * iOS Theme
  *
  * http://www.idangero.us/framework7
- * 
+ *
  * Copyright 2016, Vladimir Kharlampidi
  * The iDangero.us
  * http://www.idangero.us/
- * 
+ *
  * Licensed under MIT
- * 
+ *
  * Released on: February 27, 2016
  */
 html,
@@ -2159,7 +2159,6 @@ i.icon.icon-plus {
 .content-block-inner {
   background: #fff;
   padding: 10px 15px;
-  margin-left: -15px;
   width: 100%;
   position: relative;
   color: #000;
