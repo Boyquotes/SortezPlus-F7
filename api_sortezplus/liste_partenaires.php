@@ -1,14 +1,21 @@
 <?php
 try {
-    $dbh = new PDO('msql:host=server;dbname=utf8_database','usr','pwd');
+    $dbh = new PDO('mysql:host=localhost;dbname=sortezplbdd;charset=utf8','root','patmo11');
 
-    $rs = $dbh->query('SELECT * FROM partenaires');
-    $obj = $rs->fetchAll();
+    $req = $dbh->prepare("SELECT * FROM sp_posts INNER JOIN sp_postmeta
+                ON sp_posts.ID = sp_postmeta.post_id
+                WHERE sp_posts.post_type = 'ait-dir-item'
+                AND sp_postmeta.meta_key = '_ait-dir-item';");
 
-     // conversion en json
-    $json_output = json_encode($obj);
+    $req->execute();while($ligne = $req->fetch())
+    {
+        $tabAdresse = unserialize($ligne["meta_value"]);
+        //echo "<p>Latitude = ".$tabAdresse['gpsLatitude']." Longitude =  ".$tabAdresse['gpsLongitude']."</p>";
+        var_dump($tabAdresse);
+    }
 }
 catch(PDOException $e) {
     echo $e->getMessage();
 }
+
  ?>

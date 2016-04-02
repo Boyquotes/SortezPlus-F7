@@ -152,6 +152,10 @@ iframe{
   background-color: #C40A71;
 }
 
+/*============================== SEARCH =====================================*/
+#search{
+	margin-top:60px ;
+}
 
 footer {
 	position: fixed;

@@ -46,31 +46,85 @@ function createContentPage() {
     );
 	return;
 }
-//=================Requête Ajax Près d'ici ====================//
 
-jQuery(document).ready(function(){
-     jQuery('#json_click_handler').click(function(){
-          doAjaxRequest();
-     });
-});
-function doAjaxRequest(){
+// Ecoute de l'évènement click lors du chargement de la page
 
-     jQuery.ajax({
-          url: 'http://localhost/api_sortezplus/liste_partenaires.php',
-          data:{
-               'action':'do_ajax',
-               'fn':'get_bons_plans_posts',
-               'count':10
-               },
-          dataType: 'JSON',
-          success:function(data){
-                 // notre gestion de l'appel sera fait ici. Nous y ajouterons le code plus tard
-                             },
-          error: function(errorThrown){
-               alert('error');
-               console.log(errorThrown);
+
+          // Après le click on lance la requête ajax pour lire les données json
+        $$('#bouton').on('click',function(){
+              //On démarre la requête ajax
+            /*  $.ajax({
+                  url: "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php",
+                  //On récupère le fichier json sous forme de texte
+                  async: true,
+                  type: 'GET',
+                  data: { language: 'fr' },
+                  dataType:'text',
+                  success: function(data) {
+                      //Une fois le fichier chargé on parse le JSON
+                      //On trie les données utilent
+                      var json = $.parseJSON(data);
+                      //on injecte les données dans le html
+                      var obj= JSON.parse('{post_title}');              // {}
+                      console.log(json);
+                      $('#json_list_partenaires').html('Nom: <br>' + obj);
+                  }
+              });*/
+
+              // new XMLHttpRequest()=> Ce constructeur est pour tout autre navigateur incluant Firefox.
+              var xmlhttp = new XMLHttpRequest();
+              var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
+
+              //xmlhttp.onreadystatechange => On associe un traitement (une fonction anonyme en l'occurrence) à cet indicateur d'évènement.
+              xmlhttp.onreadystatechange = function() {
+                //xmlhttp.readyState == 4 => L'état 4 signifie que la réponse est envoyée par le serveur et disponible.
+                //xmlhttp.status == 200 => Ce status signifie ok, sinon un code d'erreur quelconque est envoyé, 404 par exemple.
+                  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                      var myArr = JSON.parse(xmlhttp.responseText);
+                      //myFunction(myArr);
+                      console.log(myArr[0].meta_value);
+                  }
+              };
+
+              //http.open( "POST", "data.xml", true);
+              //-POST ou GET
+              //-url du fichier.
+              //-true pour asynchrone (false pour synchrone).
+              xmlhttp.open("GET", url, false);
+              xmlhttp.send();
+
+              function myFunction(arr) {
+                  var out = "";
+                  var i;
+                  for(i = 0; i < arr.length; i++) {
+                      out += '<a href="' + arr[i].url + '">' +
+                      arr[i].display + '</a><br>';
+                  }
+                  document.getElementById("json_list_partenaires").innerHTML = out;
+              }
+
+          });
+
+
+        /*  var xmlhttp = new XMLHttpRequest();
+          var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
+
+          xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  var myArr = JSON.parse(xmlhttp.responseText);
+                  myFunction(myArr);
+              }
+          };
+          xmlhttp.open("GET", url, true);
+          xmlhttp.send();
+
+          function myFunction(arr) {
+              var out = "";
+              var i;
+              for(i = 0; i < arr.length; i++) {
+                  out += '<a href="' + arr[i].url + '">' +
+                  arr[i].display + '</a><br>';
+              }
+              document.getElementById("json_list_partenaires").innerHTML = out;
           }
-
-     });
-
-}
+*/
