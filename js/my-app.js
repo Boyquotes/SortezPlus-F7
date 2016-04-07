@@ -51,38 +51,19 @@ function createContentPage() {
 
 
           // Après le click on lance la requête ajax pour lire les données json
-        $$('#bouton').on('click',function(){
-              //On démarre la requête ajax
-            /*  $.ajax({
-                  url: "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php",
-                  //On récupère le fichier json sous forme de texte
-                  async: true,
-                  type: 'GET',
-                  data: { language: 'fr' },
-                  dataType:'text',
-                  success: function(data) {
-                      //Une fois le fichier chargé on parse le JSON
-                      //On trie les données utilent
-                      var json = $.parseJSON(data);
-                      //on injecte les données dans le html
-                      var obj= JSON.parse('{post_title}');              // {}
-                      console.log(json);
-                      $('#json_list_partenaires').html('Nom: <br>' + obj);
-                  }
-              });*/
-
+        $$('#bouton').on('click',function(){            
               // new XMLHttpRequest()=> Ce constructeur est pour tout autre navigateur incluant Firefox.
               var xmlhttp = new XMLHttpRequest();
-              var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
+              var url = "http://localhost/api_sortezplus/liste_partenaires.php";
 
               //xmlhttp.onreadystatechange => On associe un traitement (une fonction anonyme en l'occurrence) à cet indicateur d'évènement.
               xmlhttp.onreadystatechange = function() {
                 //xmlhttp.readyState == 4 => L'état 4 signifie que la réponse est envoyée par le serveur et disponible.
                 //xmlhttp.status == 200 => Ce status signifie ok, sinon un code d'erreur quelconque est envoyé, 404 par exemple.
                   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                      var myArr = JSON.parse(xmlhttp.responseText);
+                      var myArr = xmlhttp.responseText;
                       //myFunction(myArr);
-                      console.log(myArr[0].meta_value);
+                      console.log(myArr);
                   }
               };
 
