@@ -51,7 +51,7 @@ function createContentPage() {
 
 
           // Après le click on lance la requête ajax pour lire les données json
-        $$('#bouton').on('click',function(){            
+        $$('#bouton').on('click',function(){
               // new XMLHttpRequest()=> Ce constructeur est pour tout autre navigateur incluant Firefox.
               var xmlhttp = new XMLHttpRequest();
               var url = "http://localhost/api_sortezplus/liste_partenaires.php";
@@ -61,28 +61,20 @@ function createContentPage() {
                 //xmlhttp.readyState == 4 => L'état 4 signifie que la réponse est envoyée par le serveur et disponible.
                 //xmlhttp.status == 200 => Ce status signifie ok, sinon un code d'erreur quelconque est envoyé, 404 par exemple.
                   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                      var myArr = xmlhttp.responseText;
+
                       //myFunction(myArr);
-                      console.log(myArr);
+                      var jsonData = JSON.parse(xmlhttp.responseText);
+  for (var i = 0; i < jsonData.counters.length; i++) {
+      var counter = jsonData.counters[i];
+      console.log(counter.counter_name);
+      document.getElementById("json_list_partenaires").innerHTML = counter.counter_name;
+  }
                   }
               };
 
-              //http.open( "POST", "data.xml", true);
-              //-POST ou GET
-              //-url du fichier.
-              //-true pour asynchrone (false pour synchrone).
-              xmlhttp.open("GET", url, false);
-              xmlhttp.send();
 
-              function myFunction(arr) {
-                  var out = "";
-                  var i;
-                  for(i = 0; i < arr.length; i++) {
-                      out += '<a href="' + arr[i].url + '">' +
-                      arr[i].display + '</a><br>';
-                  }
-                  document.getElementById("json_list_partenaires").innerHTML = out;
-              }
+
+
 
           });
 
