@@ -11,7 +11,7 @@ var mainView = myApp.addView('.view-main', {
 });
 
 //Callbacks to run specific code for specific pages, for example for About page:
-myApp.onPageInit('about', function (page) {
+myApp.onPageInit('predici', function (page) {
   // run createContentPage func after link was clicked
     $$('.create-page').on('click', function () {
         createContentPage();
@@ -46,7 +46,7 @@ function createContentPage() {
     );
 	return;
 }
-
+/*
 // Ecoute de l'évènement click lors du chargement de la page
 
 
@@ -83,31 +83,30 @@ function createContentPage() {
                            var liste = document.createElement('li');
                            liste.setAttribute("class", 'item-inner');
                            $$("#toto").insertAfter(liste);
-                            $$("#toto").insertAfter(addBr);*/
+                            $$("#toto").insertAfter(addBr);
                         }
                   }
             };
+        });*/
+
+
+
+        $$( "#bouton" ).click(function(){
+            $$.ajax({
+                  // chargement du fichier externe monfichier.php
+                  url      : "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php",
+                  // Passage des données au fichier externe (ici le nom cliqué)
+                  data     : {liste: $(this).html()},
+                  cache    : false,
+                  dataType : "json",
+                  error    : function(request, error) { // Info Debuggage si erreur
+                               alert("Erreur : responseText: "+request.responseText);
+                             },
+                  success  : function(data) {
+                               // Informe l'utilisateur que l'opération est terminé et renvoie le résultat
+                               alert(data[2].lat);
+                               // J'écris le résultat
+                               $$('#toto').html(data[2].lat);
+                             }
+             });
         });
-
-        /*  var xmlhttp = new XMLHttpRequest();
-          var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
-
-          xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                  var myArr = JSON.parse(xmlhttp.responseText);
-                  myFunction(myArr);
-              }
-          };
-          xmlhttp.open("GET", url, true);
-          xmlhttp.send();
-
-          function myFunction(arr) {
-              var out = "";
-              var i;
-              for(i = 0; i < arr.length; i++) {
-                  out += '<a href="' + arr[i].url + '">' +
-                  arr[i].display + '</a><br>';
-              }
-              document.getElementById("json_list_partenaires").innerHTML = out;
-          }
-*/
