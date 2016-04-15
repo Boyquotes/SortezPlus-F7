@@ -51,33 +51,43 @@ function createContentPage() {
 
 
           // Après le click on lance la requête ajax pour lire les données json
-        $$('#bouton').on('click',function(){
+        $$('#bouton').on('click',function()
+        {
               // new XMLHttpRequest()=> Ce constructeur est pour tout autre navigateur incluant Firefox.
               var xmlhttp = new XMLHttpRequest();
-              var url = "http://localhost/api_sortezplus/liste_partenaires.php";
+              var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
+              xmlhttp.open('GET',url);
+              xmlhttp.send(null);
 
               //xmlhttp.onreadystatechange => On associe un traitement (une fonction anonyme en l'occurrence) à cet indicateur d'évènement.
-              xmlhttp.onreadystatechange = function() {
+              xmlhttp.onreadystatechange = function()
+              {
+
                 //xmlhttp.readyState == 4 => L'état 4 signifie que la réponse est envoyée par le serveur et disponible.
                 //xmlhttp.status == 200 => Ce status signifie ok, sinon un code d'erreur quelconque est envoyé, 404 par exemple.
-                  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                  {
 
                       //myFunction(myArr);
                       var jsonData = JSON.parse(xmlhttp.responseText);
-  for (var i = 0; i < jsonData.counters.length; i++) {
-      var counter = jsonData.counters[i];
-      console.log(counter.counter_name);
-      document.getElementById("json_list_partenaires").innerHTML = counter.counter_name;
-  }
+                  // console.log(jsonData);
+                        for (var i = 0; i < jsonData.length; i++)
+                         {
+                            //liste.innerHTML=jsonData[i].id_sortie;
+
+                             $$('#toto')addClass('item-inner').insertAfter('li');
+
+
+                          /* var addBr = document.createElement('br');
+                           $$("#toto").insertAfter(addBr);
+                           var liste = document.createElement('li');
+                           liste.setAttribute("class", 'item-inner');
+                           $$("#toto").insertAfter(liste);
+                            $$("#toto").insertAfter(addBr);*/
+                        }
                   }
-              };
-
-
-
-
-
-          });
-
+            };
+        });
 
         /*  var xmlhttp = new XMLHttpRequest();
           var url = "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php";
