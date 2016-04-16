@@ -96,17 +96,22 @@ function createContentPage() {
                   // chargement du fichier externe monfichier.php
                   url      : "http://localhost/SortezPlus-F7/api_sortezplus/liste_partenaires.php",
                   // Passage des données au fichier externe (ici le nom cliqué)
-                  data     : {liste: $(this).html()},
+                  data     : {concat: $(this).html()},
                   cache    : false,
                   dataType : "json",
                   error    : function(request, error) { // Info Debuggage si erreur
                                alert("Erreur : responseText: "+request.responseText);
                              },
                   success  : function(data) {
-                               // Informe l'utilisateur que l'opération est terminé et renvoie le résultat
-                               alert(data[2].lat);
-                               // J'écris le résultat
-                               $$('#toto').html(data[2].lat);
-                             }
+                              var concat = "";
+                             for (var i = 0; i <data.length; i++) {
+                              // J'écris le résultat
+                              concat+= "<p>"+data[i].post_title +"<p>";
+                              }
+                              $$('#toto').html(concat);
+                            }
+
+
+
              });
         });
